@@ -52,25 +52,28 @@ ctx.fill()
 
 let random
 let col
+let prev
 function draw(){
   for(let i = 0; i < SPEED; i++){
     random = Math.random() * 3
     if(random <= 1){
       startX = (p1X + startX) / 2
       startY = (p1Y + startY) / 2
+      col = 'rgba(255,0,0,0.5)'
     }
     else if(random <= 2){
       startX = (p2X + startX) / 2
       startY = (p2Y + startY) / 2
+      col = 'rgba(17,237,244,0.5)'
     }
     else if(random <= 3){
       startX = (p3X + startX) / 2
       startY = (p3Y + startY) / 2
+      col = 'rgba(17,237,100,0.5)'
     }
-    // ctx.fillStyle = COLOR
-    col = changeRange(startY, 0, w, 0, 360)
-    // col = Math.floor(col % 360)
-    ctx.fillStyle = `hsl(${col}, 100%, 50%)`
+    // col = changeRange(startY, 0, w, 0, 360)
+    // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
+    ctx.fillStyle = col
     ctx.beginPath()
     ctx.ellipse(startX, startY, POINT_SIZE, POINT_SIZE, 0, 0, TWOPI)
     ctx.fill()
@@ -83,7 +86,7 @@ function changeRange(val, inputLow, inputHigh, outputLow, outputHigh){
 
 let count = 0
 let x = setInterval(() => {
-  if(count >= 50){
+  if(count >= 200){
     clearInterval(x)
     console.log('Done')
   }
