@@ -51,7 +51,7 @@ ctx.fill()
 
 
 let random
-
+let col
 function draw(){
   for(let i = 0; i < SPEED; i++){
     random = Math.random() * 3
@@ -67,16 +67,23 @@ function draw(){
       startX = (p3X + startX) / 2
       startY = (p3Y + startY) / 2
     }
-    ctx.fillStyle = COLOR
+    // ctx.fillStyle = COLOR
+    col = changeRange(startY, 0, w, 0, 360)
+    // col = Math.floor(col % 360)
+    ctx.fillStyle = `hsl(${col}, 100%, 50%)`
     ctx.beginPath()
     ctx.ellipse(startX, startY, POINT_SIZE, POINT_SIZE, 0, 0, TWOPI)
     ctx.fill()
   }
 }
 
+function changeRange(val, inputLow, inputHigh, outputLow, outputHigh){
+  return ((val - inputLow) / (inputHigh - inputLow)) * (outputHigh - outputLow) + outputLow
+}
+
 let count = 0
 let x = setInterval(() => {
-  if(count >= 150){
+  if(count >= 50){
     clearInterval(x)
     console.log('Done')
   }
