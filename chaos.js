@@ -1,7 +1,9 @@
-const COLOR = '#2B9F48'
+// const COLOR = '#2B9F48'
+const COLOR = 'rgba(43, 159, 72, 0.3)'
 const TWOPI = 2 * Math.PI
 const SPEED = 100 // per frame
 const POINT_SIZE = 1
+const LIMIT = 400
 
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
@@ -99,7 +101,7 @@ function draw(){
 
       makeCircle(start, POINT_SIZE, COLOR)
     }
-    randomIndex = prev
+    prev = randomIndex
     // ctx.fillStyle = col
     // ctx.beginPath()
     // ctx.ellipse(startX, startY, POINT_SIZE, POINT_SIZE, 0, 0, TWOPI)
@@ -113,7 +115,7 @@ function changeRange(val, inputLow, inputHigh, outputLow, outputHigh){
 
 let count = 0
 let x = setInterval(() => {
-  if(count >= 200){
+  if(count >= LIMIT){
     clearInterval(x)
     console.log('Done')
   }
