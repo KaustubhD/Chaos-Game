@@ -27,9 +27,10 @@ for(let i = 0; i < numPoints; i++){
   let divide = TWOPI / numPoints
   p[0] = Math.round((w / 2) * Math.cos(i * divide))
   p[1] = Math.round((w / 2) * Math.sin(i * divide))
+  p[2] = `hsla(${i * (360 / numPoints)}, 100%, 50%, 0.4)`
   console.log(`${p[0]} and ${p[1]}`)
   points.push(p)
-  makeCircle(p, POINT_SIZE, '#fff')
+  makeCircle(p, POINT_SIZE, p[2])
 }
 // let p1X = w / 2
 // // Math.floor(Math.random() * w)
@@ -99,7 +100,8 @@ function draw(){
       // col = changeRange(startY, 0, w, 0, 360)
       // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
 
-      makeCircle(start, POINT_SIZE, COLOR)
+      // makeCircle(start, POINT_SIZE, COLOR)
+      makeCircle(start, POINT_SIZE, random[2])
     }
     prev = randomIndex
     // ctx.fillStyle = col
