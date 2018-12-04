@@ -14,7 +14,9 @@ let w = 500
 canvas.width = w
 canvas.height = w
 
-canvas.style.backgroundColor = '#000'
+// canvas.style.backgroundColor = '#000'
+ctx.fillStyle = '#000'
+ctx.fillRect(0, 0, w, w)
 ctx.translate(w / 2, w / 2)
 
 
@@ -100,8 +102,8 @@ function draw(){
       // col = changeRange(startY, 0, w, 0, 360)
       // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
 
-      // makeCircle(start, POINT_SIZE, COLOR)
-      makeCircle(start, POINT_SIZE, random[2])
+      makeCircle(start, POINT_SIZE, COLOR)
+      // makeCircle(start, POINT_SIZE, random[2])
     }
     prev = randomIndex
     // ctx.fillStyle = col
