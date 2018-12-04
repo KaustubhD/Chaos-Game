@@ -1,5 +1,6 @@
 // const COLOR = '#2B9F48'
-const COLOR = 'rgba(43, 159, 72, 0.3)'
+const COLOR = 'rgba(43, 159, 72, 0.4)'
+// const COLOR = 'rgba(255, 255, 255, 0.5)'
 const TWOPI = 2 * Math.PI
 const SPEED = 100 // per frame
 const POINT_SIZE = 1
@@ -17,18 +18,18 @@ canvas.height = w
 // canvas.style.backgroundColor = '#000'
 ctx.fillStyle = '#000'
 ctx.fillRect(0, 0, w, w)
-ctx.translate(w / 2, w / 2)
+// ctx.translate(w / 2, w / 2)
 
 
 let points = []
 
-let numPoints = 5
+let numPoints = 4
 
 for(let i = 0; i < numPoints; i++){
   let p = [0, 0]
-  let divide = TWOPI / numPoints
-  p[0] = Math.round((w / 2) * Math.cos(i * divide))
-  p[1] = Math.round((w / 2) * Math.sin(i * divide))
+  let divide = i * TWOPI / numPoints
+  p[0] = Math.round((w / 2) * Math.cos(divide)) + (w / 2)
+  p[1] = Math.round((w / 2) * Math.sin(divide)) + (w / 2)
   p[2] = `hsla(${i * (360 / numPoints)}, 100%, 50%, 0.4)`
   console.log(`${p[0]} and ${p[1]}`)
   points.push(p)
@@ -75,37 +76,35 @@ function makeCircle(point, rad, color){
 
 let randomIndex
 let random
-let prev
+let prev = 0
+let diff
 function draw(){
   for(let i = 0; i < SPEED; i++){
     randomIndex = Math.floor(Math.random() * numPoints)
-    if(randomIndex !== prev){
+    
+    // if(randomIndex !== prev){
+    //   random = points[randomIndex]
+    //   start[0] = (random[0] + start[0]) / 2
+    //   start[1] = (random[1] + start[1]) / 2
+
+    //   // col = changeRange(startY, 0, w, 0, 360)
+    //   // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
+
+    //   makeCircle(start, POINT_SIZE, COLOR)
+    //   // makeCircle(start, POINT_SIZE, random[2])
+    // }
+
+    diff = Math.abs(randomIndex - prev)
+    if(diff !== 2){
       random = points[randomIndex]
       start[0] = (random[0] + start[0]) / 2
       start[1] = (random[1] + start[1]) / 2
-      // if(random <= 1){
-      //   startX = (p1X + startX) / 2
-      //   startY = (p1Y + startY) / 2
-      //   col = 'rgba(255,0,0,0.5)'
-      // }
-      // else if(random <= 2){
-      //   startX = (p2X + startX) / 2
-      //   startY = (p2Y + startY) / 2
-      //   col = 'rgba(17,237,244,0.5)'
-      // }
-      // else if(random <= 3){
-      //   startX = (p3X + startX) / 2
-      //   startY = (p3Y + startY) / 2
-      //   col = 'rgba(17,237,100,0.5)'
-      // }
 
-      // col = changeRange(startY, 0, w, 0, 360)
-      // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
-
-      makeCircle(start, POINT_SIZE, COLOR)
-      // makeCircle(start, POINT_SIZE, random[2])
+      // makeCircle(start, POINT_SIZE, COLOR)
+      makeCircle(start, POINT_SIZE, random[2])
+      prev = randomIndex
     }
-    prev = randomIndex
+    
     // ctx.fillStyle = col
     // ctx.beginPath()
     // ctx.ellipse(startX, startY, POINT_SIZE, POINT_SIZE, 0, 0, TWOPI)
