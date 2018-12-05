@@ -1,23 +1,23 @@
-// const COLOR = '#2B9F48'
 const COLOR = 'rgba(43, 159, 72, 0.4)'
 // const COLOR = 'rgba(255, 255, 255, 0.5)'
 const TWOPI = 2 * Math.PI
+const HALFPI = Math.PI / 2
 const SPEED = 900 // per frame
 const POINT_SIZE = 1/10
-const LIMIT = 500
+const LIMIT = 300
+const DIVIDE_PERCENT = 0.5
 
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 
 let w = 500
-// let h = 500
+// let w = document.documentElement.clientHeight
 
 canvas.width = w
 canvas.height = w
 
-ctx.fillStyle = '#000'
+ctx.fillStyle = '#181A1C'
 ctx.fillRect(0, 0, w, w)
-// ctx.translate(w / 2, w / 2)
 
 
 let points = []
@@ -26,22 +26,18 @@ let numPoints = 5
 
 for(let i = 0; i < numPoints; i++){
   let p = [0, 0]
-  let divide = i * TWOPI / numPoints
+  let divide = (i * TWOPI / numPoints) - HALFPI
   p[0] = Math.round((w / 2) * Math.cos(divide)) + (w / 2)
   p[1] = Math.round((w / 2) * Math.sin(divide)) + (w / 2)
   p[2] = `hsla(${i * (360 / numPoints)}, 100%, 50%, 0.4)`
   console.log(`${p[0]} and ${p[1]}`)
   points.push(p)
-  if(i !== 0){
-    ctx.strokeStyle = '#fff'
-    ctx.lineWidth = 1
-    ctx.beginPath()
-    ctx.moveTo(p[0], p[1])
-    ctx.lineTo(points[(i - 1) % numPoints][0], points[(i - 1) % numPoints][1])
-    ctx.stroke()
-  }
   // makeCircle(p, POINT_SIZE * 20, p[2])
   makeCircle(p, POINT_SIZE * 20, '#fff')
+}
+
+for(let i = 0; i < numPoints; i++){
+  makeLine(points[i], points[(i + 1) % numPoints], '#fff')
 }
 // let p1X = w / 2
 // // Math.floor(Math.random() * w)
@@ -65,6 +61,15 @@ function makeCircle(point, rad, color){
   ctx.beginPath()
   ctx.ellipse(point[0], point[1], rad, rad, 0, 0, TWOPI)
   ctx.fill()
+}
+
+function makeLine(pointA, pointB, color){
+  ctx.strokeStyle = color
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(pointA[0], pointA[1])
+  ctx.lineTo(pointB[0], pointB[1])
+  ctx.stroke()
 }
 
 
@@ -92,57 +97,65 @@ function draw(){
   for(let i = 0; i < SPEED; i++){
     randomIndex = Math.floor(Math.random() * numPoints)
     
-    if(randomIndex !== prev){
-      random = points[randomIndex]
-      start[0] = (random[0] + start[0]) / 2
-      start[1] = (random[1] + start[1]) / 2
+    // with 3 vertices
+    // random = points[randomIndex]
+    // start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
+    // start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
 
-      // col = changeRange(startY, 0, w, 0, 360)
-      // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
+    // // makeCircle(start, POINT_SIZE, COLOR)
+    // makeCircle(start, POINT_SIZE, random[2])
 
-      makeCircle(start, POINT_SIZE, COLOR)
-      // makeCircle(start, POINT_SIZE, random[2])
-
-      prev = randomIndex
-    }
-
-    // diff = Math.abs(randomIndex - prev)
-    // if(diff !== 2){
+    // with 5 vertices
+    // if(randomIndex !== prev){
     //   random = points[randomIndex]
-    //   start[0] = (random[0] + start[0]) / 2
-    //   start[1] = (random[1] + start[1]) / 2
+    //   start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
+    //   start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
 
     //   // makeCircle(start, POINT_SIZE, COLOR)
     //   makeCircle(start, POINT_SIZE, random[2])
+
     //   prev = randomIndex
     // }
 
+    // with 4 vertices
     // diff = Math.abs(randomIndex - prev)
-    // diff2 = Math.abs(randomIndex - prev2)
-    // // if((diff !== 1 || diff !== 3) && (diff2 !== 1 || diff2 !== 3)){
-    // if(diff !== 1 || diff2 !== 3){
+    // if(diff !== 2){
     //   random = points[randomIndex]
-    //   start[0] = (random[0] + start[0]) / 2
-    //   start[1] = (random[1] + start[1]) / 2
+    //   start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
+    //   start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
 
     //   makeCircle(start, POINT_SIZE, COLOR)
     //   // makeCircle(start, POINT_SIZE, random[2])
-    //   prev2 = prev
     //   prev = randomIndex
     // }
+
+    // with 4 vertices
+    diff = Math.abs(randomIndex - prev)
+    diff2 = Math.abs(randomIndex - prev2)
+    if(!(prev === prev2 && (diff === 1 || diff === 3) )){
+      random = points[randomIndex]
+      start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
+      start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
+
+      makeCircle(start, POINT_SIZE, COLOR)
+      // makeCircle(start, POINT_SIZE, random[2])
+      prev2 = prev
+      prev = randomIndex
+    }
     
-    // diff = Math.abs(randomIndex - prev)
-    // diff2 = Math.abs(randomIndex - prev2)
-    // if(diff !== 0 || diff2 !== 4){
-    //   random = points[randomIndex]
-    //   start[0] = (random[0] + start[0]) / 2
-    //   start[1] = (random[1] + start[1]) / 2
+    // with 5 vertices
+    diff = Math.abs(randomIndex - prev)
+    diff2 = Math.abs(randomIndex - prev2)
+    if(!(prev === prev2 && (diff === 1 || diff === 4) )){
+      random = points[randomIndex]
+      start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
+      start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
 
-    //   makeCircle(start, POINT_SIZE, COLOR)
-    //   // makeCircle(start, POINT_SIZE, random[2])
-    //   prev2 = prev
-    //   prev = randomIndex
-    // }
+      makeCircle(start, POINT_SIZE, COLOR)
+      // makeCircle(start, POINT_SIZE, random[2])
+      prev2 = prev
+      prev = randomIndex
+    }
     
   }
 }
