@@ -2,9 +2,9 @@
 const COLOR = 'rgba(43, 159, 72, 0.4)'
 // const COLOR = 'rgba(255, 255, 255, 0.5)'
 const TWOPI = 2 * Math.PI
-const SPEED = 700 // per frame
+const SPEED = 900 // per frame
 const POINT_SIZE = 1/10
-const LIMIT = 200
+const LIMIT = 500
 
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
@@ -15,7 +15,6 @@ let w = 500
 canvas.width = w
 canvas.height = w
 
-// canvas.style.backgroundColor = '#000'
 ctx.fillStyle = '#000'
 ctx.fillRect(0, 0, w, w)
 // ctx.translate(w / 2, w / 2)
@@ -33,7 +32,16 @@ for(let i = 0; i < numPoints; i++){
   p[2] = `hsla(${i * (360 / numPoints)}, 100%, 50%, 0.4)`
   console.log(`${p[0]} and ${p[1]}`)
   points.push(p)
-  makeCircle(p, POINT_SIZE, p[2])
+  if(i !== 0){
+    ctx.strokeStyle = '#fff'
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    ctx.moveTo(p[0], p[1])
+    ctx.lineTo(points[(i - 1) % numPoints][0], points[(i - 1) % numPoints][1])
+    ctx.stroke()
+  }
+  // makeCircle(p, POINT_SIZE * 20, p[2])
+  makeCircle(p, POINT_SIZE * 20, '#fff')
 }
 // let p1X = w / 2
 // // Math.floor(Math.random() * w)
@@ -76,27 +84,27 @@ function makeCircle(point, rad, color){
 
 let randomIndex
 let random
-let prev = 0
-let prev2 = 0
+let prev
+let prev2
 let diff
 let diff2
 function draw(){
   for(let i = 0; i < SPEED; i++){
     randomIndex = Math.floor(Math.random() * numPoints)
     
-    // if(randomIndex !== prev){
-    //   random = points[randomIndex]
-    //   start[0] = (random[0] + start[0]) / 2
-    //   start[1] = (random[1] + start[1]) / 2
+    if(randomIndex !== prev){
+      random = points[randomIndex]
+      start[0] = (random[0] + start[0]) / 2
+      start[1] = (random[1] + start[1]) / 2
 
-    //   // col = changeRange(startY, 0, w, 0, 360)
-    //   // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
+      // col = changeRange(startY, 0, w, 0, 360)
+      // ctx.fillStyle = `hsla(${col}, 100%, 50%, 0.5)`
 
-    //   makeCircle(start, POINT_SIZE, COLOR)
-    //   // makeCircle(start, POINT_SIZE, random[2])
+      makeCircle(start, POINT_SIZE, COLOR)
+      // makeCircle(start, POINT_SIZE, random[2])
 
-    //   prev = randomIndex
-    // }
+      prev = randomIndex
+    }
 
     // diff = Math.abs(randomIndex - prev)
     // if(diff !== 2){
@@ -112,7 +120,7 @@ function draw(){
     // diff = Math.abs(randomIndex - prev)
     // diff2 = Math.abs(randomIndex - prev2)
     // // if((diff !== 1 || diff !== 3) && (diff2 !== 1 || diff2 !== 3)){
-    // if(diff !== 1 && diff2 !== 1){
+    // if(diff !== 1 || diff2 !== 3){
     //   random = points[randomIndex]
     //   start[0] = (random[0] + start[0]) / 2
     //   start[1] = (random[1] + start[1]) / 2
@@ -123,23 +131,19 @@ function draw(){
     //   prev = randomIndex
     // }
     
-    diff = Math.abs(randomIndex - prev)
-    diff2 = Math.abs(randomIndex - prev2)
-    if(diff !== 1 && diff2 !== 4){
-      random = points[randomIndex]
-      start[0] = (random[0] + start[0]) / 2
-      start[1] = (random[1] + start[1]) / 2
+    // diff = Math.abs(randomIndex - prev)
+    // diff2 = Math.abs(randomIndex - prev2)
+    // if(diff !== 0 || diff2 !== 4){
+    //   random = points[randomIndex]
+    //   start[0] = (random[0] + start[0]) / 2
+    //   start[1] = (random[1] + start[1]) / 2
 
-      makeCircle(start, POINT_SIZE, COLOR)
-      // makeCircle(start, POINT_SIZE, random[2])
-      prev2 = prev
-      prev = randomIndex
-    }
+    //   makeCircle(start, POINT_SIZE, COLOR)
+    //   // makeCircle(start, POINT_SIZE, random[2])
+    //   prev2 = prev
+    //   prev = randomIndex
+    // }
     
-    // ctx.fillStyle = col
-    // ctx.beginPath()
-    // ctx.ellipse(startX, startY, POINT_SIZE, POINT_SIZE, 0, 0, TWOPI)
-    // ctx.fill()
   }
 }
 
