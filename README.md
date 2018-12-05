@@ -6,4 +6,4 @@ NOTE: **This is not actually a game**. It is a representation of a concept.
 
 Read its [wiki](https://en.wikipedia.org/wiki/Chaos_game)
 
-See the live implementation here
+See the live implementation [here](https://kaustubhd.github.io/Chaos-Game)
