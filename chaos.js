@@ -4,7 +4,7 @@ const TWOPI = 2 * Math.PI
 const HALFPI = Math.PI / 2
 const SPEED = 900 // per frame
 const POINT_SIZE = 1/10
-const LIMIT = 300
+const LIMIT = 600
 const DIVIDE_PERCENT = 0.5
 
 let canvas = document.getElementById('canvas')
