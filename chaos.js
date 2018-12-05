@@ -130,18 +130,18 @@ function draw(){
     // }
 
     // with 4 vertices
-    diff = Math.abs(randomIndex - prev)
-    diff2 = Math.abs(randomIndex - prev2)
-    if(!(prev === prev2 && (diff === 1 || diff === 3) )){
-      random = points[randomIndex]
-      start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
-      start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
+    // diff = Math.abs(randomIndex - prev)
+    // diff2 = Math.abs(randomIndex - prev2)
+    // if(!(prev === prev2 && (diff === 1 || diff === 3) )){
+    //   random = points[randomIndex]
+    //   start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
+    //   start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
 
-      makeCircle(start, POINT_SIZE, COLOR)
-      // makeCircle(start, POINT_SIZE, random[2])
-      prev2 = prev
-      prev = randomIndex
-    }
+    //   makeCircle(start, POINT_SIZE, COLOR)
+    //   // makeCircle(start, POINT_SIZE, random[2])
+    //   prev2 = prev
+    //   prev = randomIndex
+    // }
     
     // with 5 vertices
     diff = Math.abs(randomIndex - prev)
@@ -151,8 +151,8 @@ function draw(){
       start[0] = (random[0] + start[0]) * DIVIDE_PERCENT
       start[1] = (random[1] + start[1]) * DIVIDE_PERCENT
 
-      makeCircle(start, POINT_SIZE, COLOR)
-      // makeCircle(start, POINT_SIZE, random[2])
+      // makeCircle(start, POINT_SIZE, COLOR)
+      makeCircle(start, POINT_SIZE, random[2])
       prev2 = prev
       prev = randomIndex
     }
