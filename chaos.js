@@ -30,7 +30,7 @@ for(let i = 0; i < numPoints; i++){
   p[0] = Math.round((w / 2) * Math.cos(divide)) + (w / 2)
   p[1] = Math.round((w / 2) * Math.sin(divide)) + (w / 2)
   p[2] = `hsla(${i * (360 / numPoints)}, 100%, 50%, 0.4)`
-  console.log(`${p[0]} and ${p[1]}`)
+  // console.log(`${p[0]} and ${p[1]}`)
   points.push(p)
   // makeCircle(p, POINT_SIZE * 20, p[2])
   makeCircle(p, POINT_SIZE * 20, '#fff')
