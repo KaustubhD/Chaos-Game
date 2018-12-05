@@ -2,9 +2,9 @@
 const COLOR = 'rgba(43, 159, 72, 0.4)'
 // const COLOR = 'rgba(255, 255, 255, 0.5)'
 const TWOPI = 2 * Math.PI
-const SPEED = 100 // per frame
-const POINT_SIZE = 1
-const LIMIT = 400
+const SPEED = 700 // per frame
+const POINT_SIZE = 1/10
+const LIMIT = 200
 
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
@@ -23,7 +23,7 @@ ctx.fillRect(0, 0, w, w)
 
 let points = []
 
-let numPoints = 4
+let numPoints = 5
 
 for(let i = 0; i < numPoints; i++){
   let p = [0, 0]
@@ -77,7 +77,9 @@ function makeCircle(point, rad, color){
 let randomIndex
 let random
 let prev = 0
+let prev2 = 0
 let diff
+let diff2
 function draw(){
   for(let i = 0; i < SPEED; i++){
     randomIndex = Math.floor(Math.random() * numPoints)
@@ -92,16 +94,45 @@ function draw(){
 
     //   makeCircle(start, POINT_SIZE, COLOR)
     //   // makeCircle(start, POINT_SIZE, random[2])
+
+    //   prev = randomIndex
     // }
 
+    // diff = Math.abs(randomIndex - prev)
+    // if(diff !== 2){
+    //   random = points[randomIndex]
+    //   start[0] = (random[0] + start[0]) / 2
+    //   start[1] = (random[1] + start[1]) / 2
+
+    //   // makeCircle(start, POINT_SIZE, COLOR)
+    //   makeCircle(start, POINT_SIZE, random[2])
+    //   prev = randomIndex
+    // }
+
+    // diff = Math.abs(randomIndex - prev)
+    // diff2 = Math.abs(randomIndex - prev2)
+    // // if((diff !== 1 || diff !== 3) && (diff2 !== 1 || diff2 !== 3)){
+    // if(diff !== 1 && diff2 !== 1){
+    //   random = points[randomIndex]
+    //   start[0] = (random[0] + start[0]) / 2
+    //   start[1] = (random[1] + start[1]) / 2
+
+    //   makeCircle(start, POINT_SIZE, COLOR)
+    //   // makeCircle(start, POINT_SIZE, random[2])
+    //   prev2 = prev
+    //   prev = randomIndex
+    // }
+    
     diff = Math.abs(randomIndex - prev)
-    if(diff !== 2){
+    diff2 = Math.abs(randomIndex - prev2)
+    if(diff !== 1 && diff2 !== 4){
       random = points[randomIndex]
       start[0] = (random[0] + start[0]) / 2
       start[1] = (random[1] + start[1]) / 2
 
-      // makeCircle(start, POINT_SIZE, COLOR)
-      makeCircle(start, POINT_SIZE, random[2])
+      makeCircle(start, POINT_SIZE, COLOR)
+      // makeCircle(start, POINT_SIZE, random[2])
+      prev2 = prev
       prev = randomIndex
     }
     
