@@ -10,8 +10,8 @@ const DIVIDE_PERCENT = 0.5
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 
-let w = 500
-// let w = document.documentElement.clientHeight
+// let w = 500
+let w = document.documentElement.clientWidth
 
 canvas.width = w
 canvas.height = w
